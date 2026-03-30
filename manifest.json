@@ -6,7 +6,8 @@
 
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Nepting Copy Helper"
+    "default_title": "Nepting Copy Helper",
+    "default_icon": "nepting.png"
   },
 
   "content_scripts": [

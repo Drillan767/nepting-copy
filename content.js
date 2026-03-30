@@ -91,14 +91,14 @@ function startBodyObserver() {
   baseline = null;
   setState("idle");
 
-  const existing = document.querySelector("table");
+  const existing = document.querySelector("div:has(table > colgroup) + div table");
   if (existing) {
     startTableObserver(existing);
     return;
   }
 
   bodyObserver = new MutationObserver(() => {
-    const table = document.querySelector("table");
+    const table = document.querySelector("div:has(table > colgroup) + div table");
     if (table) {
       bodyObserver.disconnect();
       bodyObserver = null;
@@ -114,6 +114,8 @@ function startBodyObserver() {
 runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "GET_STATE") {
     sendResponse({ state: currentState, csv: currentCSV });
+  } else if (message.type === "COPY_DONE") {
+    setState("waiting");
   }
 });
 

@@ -72,6 +72,12 @@ btn.addEventListener("click", async () => {
 
   await navigator.clipboard.writeText(pendingCSV);
   showFeedback();
+  setWaiting();
+
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (!tabs[0]) return;
+    chrome.tabs.sendMessage(tabs[0].id, { type: "COPY_DONE" });
+  });
 });
 
 // ─── On popup open: ask the active tab for current state ─────────────────────
