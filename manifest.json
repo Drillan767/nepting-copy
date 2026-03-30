@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Nepting Copy Helper",
+  "version": "1.0",
+  "description": "Select a table row on Nepting and copy it as CSV with one click.",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Nepting Copy Helper"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://nepsa2.nepting.com/alladmin/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "permissions": [
+    "clipboardWrite",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "https://nepsa2.nepting.com/*"
+  ]
+}
