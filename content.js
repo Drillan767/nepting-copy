@@ -7,8 +7,6 @@
  * Resets on hashchange (SPA navigation between tabs)
  */
 
-const runtime = typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
-
 let tableObserver = null;
 let bodyObserver  = null;
 let baseline      = null;
@@ -43,14 +41,6 @@ function rowToCSV(row) {
 function setState(state, csv = null) {
   currentState = state;
   currentCSV   = csv;
-
-  if (state === "ready") {
-    runtime.sendMessage({ type: "ROW_SELECTED", csv });
-  } else if (state === "waiting") {
-    runtime.sendMessage({ type: "TABLE_FOUND" });
-  } else {
-    runtime.sendMessage({ type: "ROW_DESELECTED" });
-  }
 }
 
 // ─── Phase 2: Table observer ──────────────────────────────────────────────────
@@ -111,10 +101,10 @@ function startBodyObserver() {
 
 // ─── Cmd+C shortcut ──────────────────────────────────────────────────────────
 
-runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.type === "GET_STATE") {
-    sendResponse({ state: currentState, csv: currentCSV });
-  } else if (message.type === "COPY_DONE") {
+window.addEventListener("keydown", async (e) => {
+  if (e.metaKey && e.key === "c" && currentState === "ready") {
+    e.preventDefault();
+    await navigator.clipboard.writeText(currentCSV);
     setState("waiting");
   }
 });

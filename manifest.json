@@ -4,12 +4,6 @@
   "version": "1.0",
   "description": "Select a table row on Nepting and copy it as CSV with one click.",
 
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "Nepting Copy Helper",
-    "default_icon": "nepting.png"
-  },
-
   "content_scripts": [
     {
       "matches": ["https://nepsa2.nepting.com/alladmin/*"],
@@ -19,8 +13,7 @@
   ],
 
   "permissions": [
-    "clipboardWrite",
-    "tabs"
+    "clipboardWrite"
   ],
 
   "host_permissions": [
