@@ -109,7 +109,7 @@ function startBodyObserver() {
   bodyObserver.observe(document.body, { childList: true, subtree: true });
 }
 
-// ─── Message handler (popup asks for current state on open) ───────────────────
+// ─── Cmd+C shortcut ──────────────────────────────────────────────────────────
 
 runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (message.type === "GET_STATE") {
